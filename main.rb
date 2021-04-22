@@ -15,7 +15,7 @@ module Enumerable
   end
 
    # my_each_with_index
-   def my_each
+   def my_each_with_index
     # Enumerator is returned when a block is not given
     return to_enum(:my_each) unless block_given?
     
@@ -29,7 +29,7 @@ module Enumerable
     ticket
   end
 
-  
+
 
 end
 
