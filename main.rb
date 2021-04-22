@@ -40,7 +40,7 @@ module Enumerable
 
   #my_all
 
-  def my_all(arr)
+  def my_all?(*arr)
     belong = true
 
     #check it the items belong to the same class
@@ -54,6 +54,20 @@ module Enumerable
     belong
   end
 
+  #my_any
+  def my_any?(*arr)
+    belong = true
+
+    #check it the items belong to the same class
+    if !arr[0].nil?
+      my_each { |item| belong = true if arr[0] === item }
+    elsif !block_given?
+      my_each { |item| belong = true if item }
+    else 
+      my_each { |item| belong = true if yield(item) }
+    end
+    belong
+  end
 end
 
 # Tests
@@ -66,5 +80,13 @@ puts '#my_each_with_index'
 
 puts '#my_select'
 puts (%w[Jenifar, Aaron, Mike, Tom, Chantelle].my_select { |name|  name != 'Aaron' })
+
+puts '#my_all?'
+puts (%w[Jenifar, Aaron, Mike, Tom, Chantelle].my_all? { |item|  item.length >= 4 })
+puts (%w[Jenifar, Aaron, Mike, Tom, Chantelle].my_all? { |item|  item.length >= 6 })
+
+puts '#my_any?'
+puts (%w[Jenifar, Aaron, Mike, Tom, Chantelle].my_any? { |item|  item.length >= 4 })
+puts (%w[Jenifar, Aaron, Mike, Tom, Chantelle].my_any? { |item|  item.length >= 6 })
 
 
